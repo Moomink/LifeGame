@@ -6,7 +6,7 @@ import javafx.scene.paint.Color
 import javafx.stage.Stage
 
 class AppMain : Application() {
-    val HEIGHT:Double = 600.0
+    val HEIGHT:Double = 700.0
     val WIDTH:Double = 800.0
 
     override fun start(primaryStage: Stage) {
@@ -23,13 +23,14 @@ class AppMain : Application() {
 
         primaryStage.scene = scene
 
-        primaryStage.height = 700.0
+        primaryStage.height = HEIGHT
 
-        primaryStage.width = 800.0
+        primaryStage.width = WIDTH
 
-        val animation = Animation(800.0,700.0,25.0)
+        val animation = Animation(WIDTH,HEIGHT,10.0)
 
-        root.children.add(animation.Test())
+        root.children.add(animation.dispLife())
+        animation.start()
         primaryStage.show()
 
 //        Timer().schedule(1000,1000){
