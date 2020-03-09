@@ -1,7 +1,6 @@
 import javafx.animation.AnimationTimer
 import javafx.scene.Group
 import javafx.scene.paint.Color
-import javafx.scene.paint.Paint
 import javafx.scene.shape.Rectangle
 
 class Animation(WidChan: Double, HeiChan: Double, LenChan: Double) : AnimationTimer() {
@@ -32,7 +31,7 @@ class Animation(WidChan: Double, HeiChan: Double, LenChan: Double) : AnimationTi
 
     }
 
-    fun initialize(base:Array<Array<Rectangle>>){
+    fun initialize(base: Array<Array<Rectangle>>) {
         for (i in 0 until Vertical_life + 2) {  //縦
             for (j in 0 until Side_life + 2) { //横
                 base[i][j].height = LENGTH
@@ -67,23 +66,24 @@ class Animation(WidChan: Double, HeiChan: Double, LenChan: Double) : AnimationTi
 //    }
 
     override fun handle(now: Long) {
+        Thread.sleep(200) //0.2秒に一回
         //n+1用配列
-        var nextLife = Array(Vertical_life + 2) { Array(Side_life + 2) { Rectangle() } }
+        val nextLife = Array(Vertical_life + 2) { Array(Side_life + 2) { Rectangle() } }
         initialize(nextLife)
         for (i in 1 until Vertical_life + 1) { //縦
             for (j in 1 until Side_life + 1) { //横
 
-                if(life[i][j].fill == Color.BLACK){ //生きていた時
+                if (life[i][j].fill == Color.BLACK) { //生きていた時
 
 
-                    nextLife[i][j].fill = when(Surrounding(life[i][j],j,i)){
-                        0,1 -> Color.WHITE
-                        2,3 -> Color.BLACK
+                    nextLife[i][j].fill = when (surrounding(j, i)) {
+                        0, 1 -> Color.WHITE
+                        2, 3 -> Color.BLACK
                         else -> Color.WHITE
                     }
-                }else{  //死んでいる時
+                } else {  //死んでいる時
 
-                    nextLife[i][j].fill = when(Surrounding(life[i][j],j,i)){
+                    nextLife[i][j].fill = when (surrounding(j, i)) {
                         3 -> Color.BLACK
                         else -> Color.WHITE
                     }
@@ -100,8 +100,8 @@ class Animation(WidChan: Double, HeiChan: Double, LenChan: Double) : AnimationTi
 
     }
 
-    fun Surrounding(base: Rectangle, x: Int, y: Int):Int{
-        var cnt:Int = 0
+    private fun surrounding(x: Int, y: Int): Int {
+        var cnt = 0
         if (life[y - 1][x - 1].fill == Color.BLACK) { //↖
             cnt++
         }
@@ -110,27 +110,27 @@ class Animation(WidChan: Double, HeiChan: Double, LenChan: Double) : AnimationTi
             cnt++
         }
 
-        if(life[y+1][x-1].fill == Color.BLACK){ // ↗
+        if (life[y + 1][x - 1].fill == Color.BLACK) { // ↗
             cnt++
         }
 
-        if(life[y-1][x].fill == Color.BLACK){ //←
+        if (life[y - 1][x].fill == Color.BLACK) { //←
             cnt++
         }
 
-        if(life[y+1][x].fill == Color.BLACK){ //→
+        if (life[y + 1][x].fill == Color.BLACK) { //→
             cnt++
         }
 
-        if(life[y-1][x+1].fill == Color.BLACK){ //↙
+        if (life[y - 1][x + 1].fill == Color.BLACK) { //↙
             cnt++
         }
 
-        if(life[y][x+1].fill == Color.BLACK){ //↓
+        if (life[y][x + 1].fill == Color.BLACK) { //↓
             cnt++
         }
 
-        if(life[y+1][x+1].fill == Color.BLACK){ //➘
+        if (life[y + 1][x + 1].fill == Color.BLACK) { //➘
             cnt++
         }
 

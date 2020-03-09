@@ -1,13 +1,14 @@
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
+import javafx.scene.input.KeyCode
 import javafx.scene.layout.Pane
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 
 class AppMain : Application() {
-    val HEIGHT:Double = 700.0
-    val WIDTH:Double = 800.0
+    val HEIGHT: Double = 700.0
+    val WIDTH: Double = 800.0
 
     override fun start(primaryStage: Stage) {
         primaryStage.title = "HogeHoge"
@@ -27,15 +28,20 @@ class AppMain : Application() {
 
         primaryStage.width = WIDTH
 
-        val animation = Animation(WIDTH,HEIGHT,10.0)
+        val animation = Animation(WIDTH, HEIGHT, 10.0)
 
         root.children.add(animation.dispLife())
-        animation.start()
         primaryStage.show()
 
-//        Timer().schedule(1000,1000){
-//            println("縦:${primaryStage.height} 横:${primaryStage.width}")
-//        }
+        scene.setOnKeyPressed {
+            when (it.code){
+                KeyCode.SPACE -> animation.stop()
+                else -> animation.start()
+            }
+        }
+
+
     }
+
 
 }
