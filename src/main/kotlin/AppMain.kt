@@ -11,7 +11,7 @@ class AppMain : Application() {
     val WIDTH: Double = 800.0
 
     override fun start(primaryStage: Stage) {
-        primaryStage.title = "HogeHoge"
+        primaryStage.title = "LifeGame"
         val fxml = javaClass.getResource("fxml/board.fxml")
 
         val root = FXMLLoader.load<Pane>(fxml)

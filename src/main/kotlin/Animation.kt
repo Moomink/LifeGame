@@ -1,5 +1,6 @@
 import javafx.animation.AnimationTimer
 import javafx.scene.Group
+import javafx.scene.input.MouseButton
 import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
 
@@ -20,6 +21,14 @@ class Animation(WidChan: Double, HeiChan: Double, LenChan: Double) : AnimationTi
 
         for (i in 1 until Vertical_life + 1) {
             for (j in 1 until Side_life + 1) {
+                life[i][j].setOnMouseClicked {
+                    life[i][j].fill = when(it.button){
+                        MouseButton.PRIMARY -> Color.BLACK
+                        MouseButton.SECONDARY -> Color.WHITE
+                        else -> Color.WHITE
+                    }
+                    life[i][j].fill = Color.BLACK
+                }
                 group.children.add(life[i][j])
             }
         }
@@ -30,6 +39,7 @@ class Animation(WidChan: Double, HeiChan: Double, LenChan: Double) : AnimationTi
 
 
     }
+
 
     fun initialize(base: Array<Array<Rectangle>>) {
         for (i in 0 until Vertical_life + 2) {  //縦
@@ -66,7 +76,7 @@ class Animation(WidChan: Double, HeiChan: Double, LenChan: Double) : AnimationTi
 //    }
 
     override fun handle(now: Long) {
-        Thread.sleep(200) //0.2秒に一回
+        Thread.sleep(100) //0.2秒に一回
         //n+1用配列
         val nextLife = Array(Vertical_life + 2) { Array(Side_life + 2) { Rectangle() } }
         initialize(nextLife)
